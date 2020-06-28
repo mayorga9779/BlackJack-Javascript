@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+Crado por: Edgar Alberto Mayorga Jimenez 
+Universidad: Universidad Mariano Galvez de Guatemala
+Carne: 5190-17-11644
+Fecha inicio: 09/09/2019 20:03
+Fecha finalizacion: 13/09/2019 18:43
+Curso: Desarrollo Web
+-->
+<html>
+    <head>
+        <title>Black Jack -- Edgar Mayorga</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #divPrincipal{
+                position: absolute;
+                float: left;
+                width: 99%;
+                height: 98%;
+                background-color: antiquewhite;
+                border: 0px;
+                padding: 0px;
+                margin: 0px;
+            }
+            #divUp{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 50%;
+                background-color: antiquewhite;
+            }
+            #divDown{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 50%;
+                background-color: antiquewhite;
+            }
+            #divRepartidor{
+                position: relative;
+                float: left;
+                width: 75%;
+                height: 100%;
+                border-right: 1px solid white;
+            }
+            #divTurnos{
+                position: relative;
+                float: left;
+                width: 24%;
+                height: 100%;
+                border-left: 1px solid gray;
+            }
+            #divJugador1{
+                position: relative;
+                float: left;
+                width: 49%;
+                height: 100%;
+                border-color: azure;
+                border-right: 1px solid white;
+            }
+            #divJugador2{
+                position: relative;
+                float: left;
+                width: 49%;
+                height: 100%;
+                border-color: chartreuse;
+                border-left: 1px solid gray;
+            }
+            .divTitulo{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 5%;
+                text-align: center;
+                font-size: 1.5em;
+                font-weight: bold;
+                font-family: Courier New;
+                background-color: chartreuse;
+            }
+            .cartas{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 75%;
+                background-color: cadetblue;
+            }
+            .controles{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 20%;
+                background-color: yellow;
+            }
+            .divTurnoJugadores{
+                position: relative;
+                float: left;
+                width: 100%;
+                height: 95%;
+                background-color: seagreen;
+            }
+            .carta{
+                position: relative;
+                float: left;
+                width: 112px;
+                height: 157px;
+                background-color: gray;
+                border: solid;
+                border-color: white;
+                border-width: 1px;
+                margin: 5px;
+                border-radius: 8px;
+                /*background-image: url("imagenes/cartasespaniolas2.png");
+                display: inline-block;
+                background-position: 0 0;
+                background-repeat: no-repeat;*/
+               
+            }
+            .cartac{
+                position: relative;
+                float: left;
+                width: 112px;
+                height: 157px;
+                background-color: gray;
+                border: solid;
+                border-color: white;
+                border-width: 1px;
+                margin: 5px;
+                border-radius: 8px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div id="divPrincipal">
+            <div id="divUp">
+                
+                
+                
+                
+                <!--AQUI COMIENZA EL CROUPER-->
+                <div id="divRepartidor">
+                    <div class="divTitulo">
+                        CROUPIER
+                    </div>
+                    <div id="divCartas1" class="cartas">
+                        <div class="cartac" id="cc1"></div>
+                        <div class="cartac" id="cc2"></div>
+                        <div class="cartac" id="cc3"></div>
+                        <div class="cartac" id="cc4"></div>
+                        <div class="cartac" id="cc5"></div>
+                        <div class="cartac" id="cc6"></div>
+                        <div class="cartac" id="cc7"></div>
+                        <div class="cartac" id="cc8"></div>
+                        <div class="cartac" id="cc9"></div>
+                        <div class="cartac" id="cc10"></div>
+                        <div class="cartac" id="cc11"></div>
+                    </div>
+                    <div id="divControles1" class="controles">
+                        <table style="float: left;">
+                            <tr>
+                                <td id="tdRepartir">
+                                    <div id="divRepartir">
+                                        <input type="submit" id="btnRepartir" name="btnRepartir" value="Repartir" style="width: 200px; height: 25px;"> 
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnAgregar" id="btnAgregar" value="Agregar" style="width: 200px; height: 25px;" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnPlantarC" id="btnPlantarC" value="Plantar" style="width: 200px; height: 25px;" disabled>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="float: left; text-align: center; padding-left: 25px; font-size: xx-large; font-weight: bold;">
+                            <tr>
+                                <td>
+                                    <label id="lblMensajeC">PUNTAJE</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label id="lblPunteoCroupier"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="divTurnos">
+                    <div class="divTitulo">
+                        TURNOS
+                    </div>
+                    <div id="divTurnoJugadores" class="divTurnoJugadores">
+                        <table style="width: 100%; height: 100%; text-align: center; font-size: xx-large; font-weight: bold;">
+                            <tr>
+                                <td id="tdC" style="border: solid; border-color: black; border-width: 1px;"><label id="lblNombreC">CROUPIER</label></td>
+                            </tr>
+                            <tr>
+                                <td id="tdJ1" style="border: solid; border-color: black; border-width: 1px;"><label id="lblNombreJ1">JUGADOR 1</label></td>
+                            </tr>
+                            <tr>
+                                <td id="tdJ2" style="border: solid; border-color: black; border-width: 1px;"><label id="lblNombreJ2">JUGADOR 2</label></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            
+            
+            
+            <div id="divDown">
+                <!--AQUI COMIENZA EL JUGADOR NO. 1-->
+                <div id="divJugador1">
+                    <div class="divTitulo">
+                        JUGADOR 1
+                    </div>
+                    <div id="divCartas2" class="cartas">
+                        <div class="carta" id="cj11"></div>
+                        <div class="carta" id="cj12"></div>
+                        <div class="carta" id="cj13"></div>
+                        <div class="carta" id="cj14"></div>
+                        <div class="carta" id="cj15"></div>
+                        <div class="carta" id="cj16"></div>
+                        <div class="carta" id="cj17"></div>
+                        <div class="carta" id="cj18"></div>
+                        <div class="carta" id="cj19"></div>
+                        <div class="carta" id="cj110"></div>
+                        <div class="carta" id="cj111"></div>
+                        <div class="carta" id="cj112"></div>
+                        <div class="carta" id="cj113"></div>
+                        <div class="carta" id="cj114"></div>
+                    </div>
+                    <div id="divControles1" class="controles">
+                        <table style="float: left;">
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnPedirCartaJ1" id="btnPedirCartaJ1" value="Pedir carta" style="width: 200px; height: 25px;" disabled> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnPlantarJ1" id="btnPlantarJ1" value="Plantar" style="width: 200px; height: 25px;" disabled>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="float: left; text-align: center; padding-left: 25px; font-size: xx-large; font-weight: bold;">
+                            <tr>
+                                <td>
+                                    <label id="lblMensajeJ1">PUNTAJE</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label id="lblPunteoJugador1"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                <!--AQUI COMIENZA EL JUGADOR NO. 2-->
+                <div id="divJugador2">
+                    <div class="divTitulo">
+                        JUGADOR 2
+                    </div>
+                    <div id="divCartas3" class="cartas">
+                        <div class="carta" id="cj21"></div>
+                        <div class="carta" id="cj22"></div>
+                        <div class="carta" id="cj23"></div>
+                        <div class="carta" id="cj24"></div>
+                        <div class="carta" id="cj25"></div>
+                        <div class="carta" id="cj26"></div>
+                        <div class="carta" id="cj27"></div>
+                        <div class="carta" id="cj28"></div>
+                        <div class="carta" id="cj29"></div>
+                        <div class="carta" id="cj210"></div>
+                        <div class="carta" id="cj211"></div>
+                        <div class="carta" id="cj212"></div>
+                        <div class="carta" id="cj213"></div>
+                        <div class="carta" id="cj214"></div>
+                    </div>
+                    <div id="divControles1" class="controles">
+                        <table style="float: left;">
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnPedirCartaJ2" id="btnPedirCartaJ2" value="Pedir carta" style="width: 200px; height: 25px;" disabled> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" name="btnPlantarJ2" id="btnPlantarJ2" value="Plantar" style="width: 200px; height: 25px;" disabled >
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="float: left; text-align: center; padding-left: 25px; font-size: xx-large; font-weight: bold;">
+                            <tr>
+                                <td>
+                                    <label id="lblMensajeJ2">PUNTAJE</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label id="lblPunteoJugador2"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var btnRepartir = document.getElementById("btnRepartir");
+            var btnPerdirJ1 = document.getElementById("btnPedirCartaJ1");
+            var btnPerdirJ2 = document.getElementById("btnPedirCartaJ2");
+            var btnPlantarJ1 = document.getElementById("btnPlantarJ1");
+            var btnPlantarJ2 = document.getElementById("btnPlantarJ2");
+            var btnPlantarC = document.getElementById("btnPlantarC");
+            var btnAgregar = document.getElementById("btnAgregar");
+            
+            var lblPunteoCroupier = document.getElementById("lblPunteoCroupier");
+            var lblPunteoJugador1 = document.getElementById("lblPunteoJugador1");
+            var lblPunteoJugador2 = document.getElementById("lblPunteoJugador2");
+            var cartas_a_repartir = [];
+            //declaro el array de cada uno de los jugadores, el cual contendra sus respectivas cartas repartidas
+            var cartas_croupier = [];
+            var cartas_jugador1 = [];
+            var cartas_jugador2 = [];
+            var contador_cartas = 0;
+            var puntaje_jugador1 = 0;
+            var puntaje_jugador2 = 0;
+            var puntaje_croupier = 0;
+            
+            //pongo el puntaje inicial de los jugadores, que tienen 0 puntos cada uno.
+            lblPunteoCroupier.innerHTML = puntaje_croupier;
+            lblPunteoJugador1.innerHTML = puntaje_jugador1;
+            lblPunteoJugador2.innerHTML = puntaje_jugador2;
+            var turno = 0;
+            var contadorC = 0;
+            var contadorJ1 = 0;
+            var contadorJ2 = 0;
+            
+             btnRepartir.onclick = function(){
+                 //mazo de cartas declara en el array cartas
+                 var cartas = ["01C", "02C", "03C", "04C", "05C", "06C", "07C", "08C", "09C", "10C", "11C", "12C", "13C", "01E", "02E", "03E", "04E", "05E", "06E", "07E", "08E", "09E", "10E", "11E", "12E", "13E", "01D", "02D", "03D", "04D", "05D", "06D", "07D", "08D", "09D", "10D", "11D", "12D", "13D", "01T", "02T", "03T", "04T", "05T", "06T", "07T", "08T", "09T", "10T", "11T", "12T", "13T"];
+                 var cartas_aux = [];
+                 var contador = 0;
+                 var contador2 = 0;
+                 var carta = "";
+                 var repetido = 0;
+                 var bandera = false;
+                 
+                 for(var i = 0; i < cartas.length; i++){
+                     carta = revolver_cartas(cartas);
+                     //console.log("salio la carta: " + carta);
+                     
+                     if(cartas_aux.length == 0){    //si no tiene elementos
+                         cartas_aux.push(carta);
+                         contador2++;
+                         //console.log("se agrego la carta: " + carta + " contador2= " + contador2);
+                     } else {
+                         for(var j = 0; j <= cartas_aux.length; j++){
+                             if(cartas_aux[j] != carta){        
+                                 repetido = 0;
+                             } else if(cartas_aux[j] == carta){ 
+                                 //console.log("la carta salio repetida porque salio: " + carta + " contador2= " + contador2);
+                                 repetido = 1;
+                                 break;
+                             }
+                             
+                             if((repetido == 0) && (j == cartas_aux.length)){
+                                 cartas_aux.push(carta);
+                                 //console.log("se agrego la carta: " + carta + " contador2= " + contador2);
+                                 contador2++;
+                                 if(contador2 == 17)
+                                 {
+                                     break;
+                                 }
+                                 break; //este es nuevo
+                             }
+                         }
+                     }
+                 }
+                 cartas_a_repartir = cartas_aux;    //asigno las cartas revueltas al array de cartas que se van a repartir entre los jugadores
+                 contador_cartas = repartir_cartas_jugador1(cartas_a_repartir, contador_cartas);
+                 contador_cartas = repartir_cartas_jugador2(cartas_a_repartir, contador_cartas);
+                 contador_cartas = repartir_cartas_croupier(cartas_a_repartir, contador_cartas);
+                 
+                 console.log("Las cartas a repartir son: " + cartas_a_repartir);
+                 btnRepartir.disabled = true;   //desactivo el boton para que no vuelvan a pulsar.
+                 btnRepartir.value = "";
+                 document.getElementById("btnPedirCartaJ1").disabled = false;
+                 document.getElementById("btnPlantarJ1").disabled = false;
+                 document.getElementById("tdJ1").style.backgroundColor = 'yellow';
+                 
+                 if(puntaje_jugador1 > 21){
+                     document.getElementById("btnPedirCartaJ1").disabled = true;
+                     document.getElementById("btnPlantarJ1").disabled = true;
+                     
+                     if(puntaje_jugador2 < 21){
+                         document.getElementById("btnPedirCartaJ2").disabled = false;
+                         document.getElementById("btnPlantarJ2").disabled = false;
+                     }
+                 }
+                 if(puntaje_jugador2 > 21) {
+                     document.getElementById("btnPedirCartaJ2").disabled = true;
+                     document.getElementById("btnPlantarJ2").disabled = true;
+                     
+                     if(puntaje_croupier < 21){
+                         document.getElementById("btnAgregar").disabled = false;
+                         document.getElementById("btnPlantarC").disabled = false;
+                         document.getElementById("btnPedirCartaJ1").disabled = true;
+                         document.getElementById("btnPlantarJ1").disabled = true;
+                     }
+                 }
+                 console.log("contador J1: " + contadorJ1 + " contador J2: " + contadorJ2 + " contador Croupier: " + contadorC + " contador cartas: " + contador_cartas);
+             }
+             
+             btnPerdirJ1.onclick = function(){
+                 var idDivCarta = "";
+                 var carta = "";
+                 contador_cartas++;
+                 contadorJ1++;
+                 carta = cartas_a_repartir[contador_cartas - 1];
+                 idDivCarta = "cj1" + contadorJ1;
+                 cartas_jugador1.push(carta);
+                 puntaje_jugador1 = suma_punteos(cartas_jugador1);
+                 mostrar_carta(carta, idDivCarta);
+                 
+                 if(puntaje_jugador1 == 21){
+                     mensaje = "¡EL JUGADOR 1 HA GANADO!";
+                     document.getElementById("btnPedirCartaJ1").disabled = true;
+                     document.getElementById("btnPlantarJ1").disabled = true;
+                 }
+                 if(puntaje_jugador1 > 21){
+                     mensaje = "¡EL JUGADOR 1 HA PERDIDO!"
+                     document.getElementById("btnPedirCartaJ1").disabled = true;
+                     document.getElementById("btnPlantarJ1").disabled = true;
+                     document.getElementById("tdJ1").style.backgroundColor = 'red';
+                     if(puntaje_jugador2 < 21){
+                         document.getElementById("btnPedirCartaJ2").disabled = false;
+                         document.getElementById("btnPlantarJ2").disabled = false;
+                         document.getElementById("tdJ2").style.backgroundColor = 'yellow';
+                         document.getElementById("tdJ1").style.backgroundColor = 'red';
+                     }
+                 }
+                 if(puntaje_jugador1 < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeJ1").innerHTML = mensaje;
+                 lblPunteoJugador1.innerHTML = puntaje_jugador1;
+                 console.log("contador cartas: " + contador_cartas);
+             }
+             
+             btnPerdirJ2.onclick = function(){
+                 var idDivCarta = "";
+                 var carta = "";
+                 contador_cartas++;
+                 contadorJ2++;
+                 carta = cartas_a_repartir[contador_cartas - 1];
+                 idDivCarta = "cj2" + contadorJ2;
+                 cartas_jugador2.push(carta);
+                 puntaje_jugador2 = suma_punteos(cartas_jugador2);
+                 mostrar_carta(carta, idDivCarta);
+                 
+                 if(puntaje_jugador2 == 21){
+                     mensaje = "¡EL JUGADOR 2 HA GANADO!";
+                     document.getElementById("btnPedirCartaJ2").disabled = true;
+                     document.getElementById("btnPlantarJ2").disabled = true;
+                 }
+                 if(puntaje_jugador2 > 21){
+                     mensaje = "¡EL JUGADOR 2 HA PERDIDO!"
+                     document.getElementById("btnPedirCartaJ2").disabled = true;
+                     document.getElementById("btnPlantarJ2").disabled = true;
+                     document.getElementById("tdJ2").style.backgroundColor = 'red';
+                     
+                     if(puntaje_croupier < 21){
+                         document.getElementById("btnAgregar").disabled = false;
+                         document.getElementById("btnPlantarC").disabled = false;
+                         document.getElementById("tdC").style.backgroundColor = 'yellow';
+                         document.getElementById("tdJ2").style.backgroundColor = 'red';
+                     }
+                 }
+                 if(puntaje_jugador2 < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeJ2").innerHTML = mensaje;
+                 lblPunteoJugador2.innerHTML = puntaje_jugador2;
+                 
+                 console.log("contador cartas: " + contador_cartas);
+             }
+             
+             btnAgregar.onclick = function(){
+                 var idDivCarta = "";
+                 var carta = "";
+                 contador_cartas++;
+                 contadorC++;
+                 carta = cartas_a_repartir[contador_cartas - 1];
+                 idDivCarta = "cc" + contadorC;
+                 cartas_croupier.push(carta);
+                 puntaje_croupier = suma_punteos(cartas_croupier);
+                 mostrar_carta(carta, idDivCarta);
+                 
+                 if(puntaje_croupier == 21){
+                     mensaje = "¡LA MESA HA GANADO!";
+                 }
+                 if(puntaje_croupier > 21){
+                     mensaje = "¡LA MESA HA PERDIDO!"
+                     document.getElementById("tdC").style.backgroundColor = 'red';
+                     
+                     if(puntaje_jugador1 < 21){
+                         document.getElementById("btnPedirCartaJ1").disabled = false;
+                         document.getElementById("btnPlantarJ1").disabled = false;
+                         document.getElementById("tdJ1").style.backgroundColor = 'yellow';
+                         document.getElementById("tdC").style.backgroundColor = 'red';
+                     }
+                 }
+                 if(puntaje_croupier < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeC").innerHTML = mensaje;
+                 lblPunteoCroupier.innerHTML = puntaje_croupier;
+                 console.log("contador cartas: " + contador_cartas);
+             }
+             
+             btnPlantarJ1.onclick = function(){
+                 document.getElementById("tdC").style.backgroundColor = 'gray';
+                 document.getElementById("tdJ1").style.backgroundColor = 'gray';
+                 document.getElementById("tdJ2").style.backgroundColor = 'yellow';
+                 document.getElementById("btnPedirCartaJ2").disabled = false;
+                 document.getElementById("btnPlantarJ2").disabled = false;
+                 document.getElementById("btnPedirCartaJ1").disabled = true;
+                 document.getElementById("btnPlantarJ1").disabled = true;
+                 document.getElementById("btnPlantarC").disabled = true;
+                 document.getElementById("btnAgregar").disabled = true;
+             }
+             
+             btnPlantarJ2.onclick = function(){
+                 document.getElementById("tdC").style.backgroundColor = 'yellow';
+                 document.getElementById("tdJ1").style.backgroundColor = 'gray';
+                 document.getElementById("tdJ2").style.backgroundColor = 'gray';
+                 document.getElementById("btnPedirCartaJ2").disabled = true;
+                 document.getElementById("btnPlantarJ2").disabled = true;
+                 document.getElementById("btnPedirCartaJ1").disabled = true;
+                 document.getElementById("btnPlantarJ1").disabled = true;
+                 document.getElementById("btnPlantarC").disabled = false;
+                 document.getElementById("btnAgregar").disabled = false;
+             }
+             
+             btnPlantarC.onclick = function(){
+                 document.getElementById("tdC").style.backgroundColor = 'gray';
+                 document.getElementById("tdJ1").style.backgroundColor = 'yellow';
+                 document.getElementById("tdJ2").style.backgroundColor = 'gray';
+                 document.getElementById("btnPedirCartaJ2").disabled = true;
+                 document.getElementById("btnPlantarJ2").disabled = true;
+                 document.getElementById("btnPedirCartaJ1").disabled = false;
+                 document.getElementById("btnPlantarJ1").disabled = false;
+                 document.getElementById("btnPlantarC").disabled = true;
+                 document.getElementById("btnAgregar").disabled = true;
+                 
+                 
+             }
+             
+             //función que me va a devolver una carta del mazo de cartas de forma aleatoria
+             function revolver_cartas(cartas){
+                 var carta = ""; 
+                 carta = cartas[Math.floor(Math.random() * cartas.length)];   //esta funcion me devuelver solo una carta aleatoria del mazo de cartas
+                
+                 return carta;
+             }
+             
+             function repartir_cartas_jugador1(cartas_a_repartir, contador_cartas){
+                 var idDivCarta  = "";
+                 var mensaje = "";
+                 for(var i = 0; i < 2; i++){
+                     cartas_jugador1[i] = cartas_a_repartir[i];
+                     idDivCarta = "cj1" + (i + 1);
+                     mostrar_carta(cartas_jugador1[i], idDivCarta);
+                     contadorJ1++;
+                     contador_cartas++;
+                 }
+                 puntaje_jugador1 = suma_punteos(cartas_jugador1);
+                 
+                 if(puntaje_jugador1 == 21){
+                     mensaje = "¡EL JUGADOR 1 HA GANADO!";
+                     document.getElementById("btnPedirCartaJ1").disabled = true;
+                     document.getElementById("btnPlantarJ1").disabled = true;
+                 }
+                 if(puntaje_jugador1 > 21){
+                     mensaje = "¡EL JUGADOR 1 HA PERDIDO!"
+                     document.getElementById("btnPedirCartaJ1").disabled = true;
+                     document.getElementById("btnPlantarJ1").disabled = true;
+                 }
+                 if(puntaje_jugador1 < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeJ1").innerHTML = mensaje;
+                 lblPunteoJugador1.innerHTML = puntaje_jugador1;        //se muestra el punteo del jugador 1
+                 
+                 
+                 return contador_cartas;
+             }
+             
+             function repartir_cartas_jugador2(cartas_a_repartir, contador_cartas){
+                 var idDivCarta  = "";
+                 var mensaje = "";
+                 for(var i = 0; i < 2; i++){
+                     cartas_jugador2[i] = cartas_a_repartir[contador_cartas];
+                     idDivCarta = "cj2" + (i + 1);
+                     mostrar_carta(cartas_jugador2[i], idDivCarta);
+                     contadorJ2++;
+                     contador_cartas++;
+                 }
+                 puntaje_jugador2 = suma_punteos(cartas_jugador2);
+                 if(puntaje_jugador2 == 21){
+                     mensaje = "¡EL JUGADOR 2 HA GANADO!";
+                     document.getElementById("btnPedirCartaJ2").disabled = true;
+                     document.getElementById("btnPlantarJ2").disabled = true;
+                 }
+                 if(puntaje_jugador2 > 21){
+                     mensaje = "¡EL JUGADOR 2 HA PERDIDO!"
+                     document.getElementById("btnPedirCartaJ2").disabled = true;
+                     document.getElementById("btnPlantarJ2").disabled = true;
+                 }
+                 if(puntaje_jugador2 < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeJ2").innerHTML = mensaje;
+                 lblPunteoJugador2.innerHTML = puntaje_jugador2;        //se muestra el punteo del jugador 2
+                 
+                 return contador_cartas;
+             }
+             
+             function repartir_cartas_croupier(cartas_a_repartir, contador_cartas){
+                 var idDivCarta  = "";
+                 var mensaje = "";
+                 cartas_croupier[0] = cartas_a_repartir[contador_cartas];
+                 idDivCarta = "cc" + 1;
+                 mostrar_carta(cartas_croupier[0], idDivCarta);
+                 puntaje_croupier = suma_punteos(cartas_croupier);
+                 if(puntaje_croupier == 21){
+                     mensaje = "¡LA MESA HA GANADO!";
+                 }
+                 if(puntaje_croupier > 21){
+                     mensaje = "¡LA MESA HA PERDIDO!"
+                 }
+                 if(puntaje_croupier < 21){
+                     mensaje = "PUNTAJE"
+                 }
+                 document.getElementById("lblMensajeC").innerHTML = mensaje;
+                 lblPunteoCroupier.innerHTML = puntaje_croupier;        //se muestra el punteo del croupier
+                 contadorC++;
+                 contador_cartas++;
+                 
+                 return contador_cartas;
+             }
+             
+             function suma_punteos(cartas_jugador){
+                 var punteo = 0;
+                 var carta = "";
+                 var valor = 0;
+                 
+                 for(var i = 0; i < cartas_jugador.length; i++){
+                     carta = cartas_jugador[i]
+                     valor = parseInt(carta.substring(0, 2));
+                     punteo = punteo + valor;
+                 }
+                 console.log("El punteo es: " + punteo);
+                 return punteo;
+             }
+             
+             function mostrar_carta(carta, idDivCarta){
+                 var objDiv = document.getElementById(idDivCarta);
+                 var url = "imagenes/cartasespaniolas2.png";
+                 var coordenadas_imagen = "";
+                 objDiv.style.backgroundImage = 'url('+ url +')';
+                 
+                 //ahora voy a crear las coordenadas de cada una de las cartas que estan dentro del sprite de imagnes (imagenes/cartasespaniolas2.png)
+                 switch(carta){
+                     case "01C":
+                         coordenadas_imagen = "0px 0px";
+                         break;
+                     case "02C":
+                         coordenadas_imagen = "-112px 0px";
+                         break;
+                     case "03C":
+                         coordenadas_imagen = "-224px 0px";
+                         break;
+                     case "04C":
+                         coordenadas_imagen = "-337px 0px";
+                         break;
+                     case "05C":
+                         coordenadas_imagen = "-449px 0px";
+                         break;
+                     case "06C":
+                         coordenadas_imagen = "-562px 0px";
+                         break;
+                     case "07C":
+                         coordenadas_imagen = "-674px 0px";
+                         break;
+                     case "08C":
+                         coordenadas_imagen = "-787px 0px";
+                         break;
+                     case "09C":
+                         coordenadas_imagen = "-899px 0px";
+                         break;
+                     case "10C":
+                         coordenadas_imagen = "-1012px 0px";
+                         break;
+                     case "11C":
+                         coordenadas_imagen = "-1125px 0px";
+                         break;    
+                     case "12C":
+                         coordenadas_imagen = "-1237px 0px";
+                         break;
+                     case "13C":
+                         coordenadas_imagen = "-1350px 0px";
+                         break;
+                     case "01E":
+                         coordenadas_imagen = "0px -157px";
+                         break;
+                     case "02E":
+                         coordenadas_imagen = "-112px -157px";
+                         break;
+                     case "03E":
+                         coordenadas_imagen = "-224px -157px";
+                         break;
+                     case "04E":
+                         coordenadas_imagen = "-337px -157px";
+                         break;   
+                     case "05E":
+                         coordenadas_imagen = "-449px -157px";
+                         break;    
+                     case "06E":
+                         coordenadas_imagen = "-562px -157px";
+                         break;    
+                     case "07E":
+                         coordenadas_imagen = "-674px -157px";
+                         break;    
+                     case "08E":
+                         coordenadas_imagen = "-787px -157px";
+                         break;    
+                     case "09E":
+                         coordenadas_imagen = "-899px -157px";
+                         break;    
+                     case "10E":
+                         coordenadas_imagen = "-1012px -157px";
+                         break;    
+                     case "11E":
+                         coordenadas_imagen = "-1125px -157px";
+                         break;    
+                     case "12E":
+                         coordenadas_imagen = "-1237px -157px";
+                         break;    
+                     case "13E":
+                         coordenadas_imagen = "-1350px -157px";
+                         break;    
+                     case "01D":
+                         coordenadas_imagen = "0px -314px";
+                         break;    
+                     case "02D":
+                         coordenadas_imagen = "-112px -314px";
+                         break;    
+                     case "03D":
+                         coordenadas_imagen = "-224px -314px";
+                         break;    
+                     case "04D":
+                         coordenadas_imagen = "-337px -314px";
+                         break;    
+                     case "05D":
+                         coordenadas_imagen = "-449px -314px";
+                         break;    
+                     case "06D":
+                         coordenadas_imagen = "-562px -314px";
+                         break;    
+                     case "07D":
+                         coordenadas_imagen = "-674px -314px";
+                         break;    
+                     case "08D":
+                         coordenadas_imagen = "-787px -314px";
+                         break;    
+                     case "09D":
+                         coordenadas_imagen = "-899px -314px";
+                         break;    
+                     case "10D":
+                         coordenadas_imagen = "-1012px -314px";
+                         break;    
+                     case "11D":
+                         coordenadas_imagen = "-1125px -314px";
+                         break;    
+                     case "12D":
+                         coordenadas_imagen = "-1237px -314px";
+                         break;    
+                     case "13D":
+                         coordenadas_imagen = "-1350px -314px";
+                         break;    
+                     case "01T":
+                         coordenadas_imagen = "0px -472px";
+                         break;    
+                     case "02T":
+                         coordenadas_imagen = "-112px -472px";
+                         break;    
+                     case "03T":
+                         coordenadas_imagen = "-224px -472px";
+                         break;    
+                     case "04T":
+                         coordenadas_imagen = "-337px -472px";
+                         break;    
+                     case "05T":
+                         coordenadas_imagen = "-449px -472px";
+                         break;    
+                     case "06T":
+                         coordenadas_imagen = "-562px -472px";
+                         break;    
+                     case "07T":
+                         coordenadas_imagen = "-674px -472px";
+                         break;    
+                     case "08T":
+                         coordenadas_imagen = "-787px -472px";
+                         break;    
+                     case "09T":
+                         coordenadas_imagen = "-899px -472px";
+                         break;    
+                     case "10T":
+                         coordenadas_imagen = "-1012px -472px";
+                         break;    
+                     case "11T":
+                         coordenadas_imagen = "-1125px -472px";
+                         break;    
+                     case "12T":
+                         coordenadas_imagen = "-1237px -472px";
+                         break;    
+                     case "13T":
+                         coordenadas_imagen = "-1350px -472px";
+                         break;  
+                     default:
+                         console.log("No se identifico la carta");
+                 }
+                 //ahora mando a desplegar la imagen de la carta en el div
+                 objDiv.style.backgroundPosition = coordenadas_imagen;
+                 objDiv.style.backgroundRepeat = "no-repeat";
+             }
+        </script>
+    </body>
+</html>
